@@ -1,5 +1,6 @@
 import React from 'react'; //8.3K (gzipped: 3.3K)
 import Header from './components/Header/Header';
+import Home  from './components/Home/Home';
 import Main from './components/Main/Main';
 import Features from './components/Features/Features';
 import Footer from './components/Footer/Footer';
@@ -20,6 +21,7 @@ class App extends React.Component {
     rocket: 'Falcon 1',
     rocketFeatures: null, 
     rockets: [],
+    company: null,
   };
 
   componentDidMount() {
@@ -45,15 +47,27 @@ changeRocket = rocket => {
   }, this.updateRocket);
 }
 
+updateCompany = () => {
+  this.fetchData.getCompany()
+    .then(company => this.setState({company}))
+}
+
+
+/*() => console.log(this.state)*/
+/**/
+/*< Footer />*/
+      //<Calendar />
+      //<Details />
+
   render () {
     return (
       <>
       <Header rockets={this.state.rockets} changeRocket = {this.changeRocket}/>
-      <Main rocket={this.state.rocket}/>
-      <Features />
-      <Footer />
-      <Calendar />
-      <Details />
+      {this.state.company && <Home company={this.state.company} />}
+      {<Main rocket={this.state.rocket }/>}
+      {this.state.rocketFeatures && <Features {... this.state.rocketFeatures} />}
+      {this.state.company && <Footer {...this.state.company} />}
+
       </>
       );
   } 
